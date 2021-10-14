@@ -12,3 +12,6 @@ class Post(models.Model):
     caption = models.TextField()
     created_date = models.DateTimeField(default= timezone.now)
 
+    def __str__(self):
+        return self.caption
+
