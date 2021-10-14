@@ -50,7 +50,7 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def logincup(request):
-    return render(request,'login.html')
+    return render(request,'index.html')
 
 
 def userPage(request):
