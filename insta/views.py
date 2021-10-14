@@ -1,13 +1,13 @@
 from django.http import request
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
-
+from .models import Post
 from .decorators import unauthenticated_user
 from .forms import CreateUserForm
 from django.contrib import messages
 from django .contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic import (ListView)
 # Create your views here.
 
 
@@ -50,7 +50,7 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def logincup(request):
-    return render(request,'index.html')
+    return render(request,'post.html')
 
 
 def userPage(request):
@@ -59,5 +59,22 @@ def userPage(request):
     return render(request,'accounts/user.html',context)
 
 
+
+# list view class
+
+class PostListView(ListView):
+    template_name = 'post.html'
+    queryset = Post.objects.all()
+    context_object_name = 'posts'
+
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = Post.objects.all()
+        return context
+
+    
+
+    
 
 

@@ -1,5 +1,10 @@
 from django.urls import path
 from .import views
+from .views import (
+    PostListView
+)
+
+
 
 
 urlpatterns =[
@@ -9,6 +14,7 @@ urlpatterns =[
     path('logout/',views.userPage,name='user-page'),
     path('user/',views.logoutUser,name='logout'),
     path('',views.logincup,name='auth'),
+    path('',PostListView.as_view(),name='post_list'),
 
 
 ]
