@@ -3,7 +3,7 @@
 <section class="section">
     <div class="container">
         <div class="columns is-mobile is-centered">
-            <div class="column">
+            <div class="column is-half">
 
         <div class="card">
             <div class="card-image">
@@ -19,21 +19,26 @@
                   </figure>
                 </div>
                 <div class="media-content">
-                  <p class="title is-4">John Smith</p>
-                  <p class="subtitle is-6">@johnsmith</p>
-                </div>
-              </div>
-          
-              <div class="content">
-                {% for post in posts %}
-
-                <h4>{{ post.author }}</h4>
-                <h4>{{ post.caption }}</h4>
+                  <div class="content" style="padding: 0 0 10px;">
+                    <i class="bi bi-heart"></i>
+                    <i class="bi bi-chat-dots"></i>
+                    <i class="bi bi-download"></i>
+                  </div>
+                  {% for post in posts %}
+                  <p class="title is-4">{{ post.author }}</p>
+                  <p class="subtitle is-6">{{ post.caption }}</p>
+                  <p class="subtitle is-8">{{ post.created_date | timesince }}</p>
 
                   {% endfor %}
-  
+                  <div class="likes">
+                    <a href="">50 likes</a>
+                  </div>
+                </div>
                 
+
               </div>
+          
+              
             </div>
           </div>
           
