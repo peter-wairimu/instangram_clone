@@ -1,15 +1,25 @@
 from django.http import request
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Post
 from .decorators import unauthenticated_user
-from .forms import CreateUserForm
+from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django .contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
-from django.views.generic import (ListView)
+from django.utils import timezone
+
+
+
+
 # Create your views here.
 
+
+
+def post(request):
+    posts = Post.objects.all().filter
+
+    return render(request,'post.html',{'posts':posts})
 
 @unauthenticated_user
 def registerPage(request):
@@ -60,18 +70,35 @@ def userPage(request):
 
 
 
-# list view class
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
 
-class PostListView(ListView):
-    template_name = 'post.html'
-    queryset = Post.objects.all()
-    context_object_name = 'posts'
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
 
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['posts'] = Post.objects.all()
-        return context
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'accounts/profile.html', context)
+
+
+
+
+
+
+
 
     
 
