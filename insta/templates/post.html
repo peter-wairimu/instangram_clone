@@ -58,6 +58,7 @@
                 {%endif%}
 
                 <a href="{% url 'add-comment' post.id%}"><button class="button is-info" >add comment</button></a>
+                <a href="{% url 'delete-comment' post.id%}"><button class="button is-danger" >delete</button></a>
                 
                 <div class="likes">
                   <a href="">50 likes</a>

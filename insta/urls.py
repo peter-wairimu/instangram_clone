@@ -18,6 +18,7 @@ urlpatterns =[
     path('new/', views.create_post, name='post'),
     path('',views.post,name='post_list'),
     path('add-comment/<int:pk>/', views.add_comment, name='add-comment'),
+    path('delete-comment/<int:pk>/', views.delete_comment, name='delete-comment'),
    
 
 

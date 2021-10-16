@@ -143,4 +143,15 @@ def add_comment(request,pk):
 
 
 
+def delete_comment(request,pk):
+    comment =Comment.objects.filter(post = pk).last()
+    comment.delete()
+    return redirect('post_list')
+
+
+
+
+
+
+
 
