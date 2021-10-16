@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Post
 from .decorators import unauthenticated_user
-from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
+from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm,PostForm
 from django.contrib import messages
 from django .contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required

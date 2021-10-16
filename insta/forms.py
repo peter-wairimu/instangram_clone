@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django import forms
 from .models import Post, Profile
 from crispy_forms.helper import FormHelper
-from crispy_forms.helper import Submit,Layout,Field
+from crispy_forms.layout import Submit,Layout,Field
 
 
 
@@ -43,7 +43,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     helper = FormHelper
     helper.form_method = 'POST'
-    helper.add_input(Submit('post', 'Post'))
+    helper.add_input(Submit('post', 'Post',css_class = 'btn success'))
 
     class Meta:
         model = Post
