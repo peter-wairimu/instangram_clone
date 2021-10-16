@@ -1,3 +1,4 @@
+from django.contrib.auth import forms
 from django.http import request
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.forms import UserCreationForm
@@ -95,7 +96,18 @@ def profile(request):
 
 
 
-
+def create_post(request):
+    current_user = request.user
+    if request.method == "POST":
+        form = PostForm(request.POST,request.FILES)
+        if form.is_valid:
+            post = form.save(commit= False)
+            post.author = current_user
+            post.save()
+        return redirect('post')
+    else:
+        form = PostForm()
+    return render(request,'create_post.html',{'form':form})
 
 
 
