@@ -42,19 +42,22 @@
               <p class="subtitle is-8">{{ post.created_date | timesince }}</p>
 
 
-              <h3>comments......</h3>
+              <h3>comments......  </h3>
               {% if not post.comments.all %}
-                No Comments Yet... <a href="/">add a comment</a>
+                <p>No Comments Yet... </p>
 
                 {% else %}
 
                 {% for comment in post.comments.all %}
 
-                {{comment.name}} -{{comment.date_added}}
-                {{comment.body}}
+                <h2>{{comment.name}}</h2>
+                <p>{{comment.comment_body}}</p>
+                <p>{{comment.date_added}}</p>
                 {%endfor%}
 
                 {%endif%}
+
+                <a href="{% url 'add-comment' post.id%}"><button class="button is-info" >add comment</button></a>
                 
                 <div class="likes">
                   <a href="">50 likes</a>

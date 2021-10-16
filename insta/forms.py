@@ -3,7 +3,7 @@ from django.contrib.auth import models
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from django.forms import fields
+from django.forms import fields, widgets
 from .models import Comment, Post, Profile
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit,Layout,Field
@@ -55,15 +55,15 @@ class PostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(widget= forms.Textarea(attrs={
-        'rows': '4'
-    }))
 
     class Meta:
         model = Comment
-        fields = [
-            'content'
-        ]
+        fields = ['comment_body',]
+        widgets = {
+            'comment_body':forms.Textarea(attrs={'class': 'form-control'}),
+        }
+            
+        
 
 
 

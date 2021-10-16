@@ -1,10 +1,11 @@
+from datetime import date, datetime
 from django.contrib.auth import forms
 from django.http import request
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import Post
+from .models import Post,Comment, Profile
 from .decorators import unauthenticated_user
-from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm,PostForm
+from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm,PostForm,CommentForm
 from django.contrib import messages
 from django .contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -19,7 +20,10 @@ from django.utils import timezone
 def post(request):
     posts = Post.objects.all().filter(created_date__lte = timezone.now()).order_by('-created_date')
 
-    return render(request,'post.html',{'posts':posts})
+
+
+
+    return render(request,'post.html',{'posts':posts,})
 
 @unauthenticated_user
 def registerPage(request):
@@ -71,6 +75,9 @@ def userPage(request):
 
 @login_required(login_url='login')
 def profile(request):
+    user = request.user
+    user = Profile.objects.get_or_create(user= request.user)
+    
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)                         
@@ -86,7 +93,9 @@ def profile(request):
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'user': user
+
     }
 
     return render(request, 'accounts/profile.html', context)
@@ -110,6 +119,28 @@ def create_post(request):
 
     
 
-    
+def add_comment(request,pk):
+    post = Post.objects.get(pk = pk)
+    form = CommentForm(request.POST,instance=post)
+    if request.method == "POST":
+        if form.is_valid():
+            name = request.user.username
+            comment_body = form.cleaned_data['comment_body']
+            peter = Comment(post=post,name =name,comment_body =comment_body,date_added=datetime.now())
+
+            peter.save()
+            return redirect('post_list')
+        else:
+            print('form is invalid')
+
+    else:
+        form = CommentForm
+
+    context = {
+        'form':form
+    }
+    return render(request,'tag.html',context)
+
+
 
 

@@ -17,6 +17,7 @@ urlpatterns =[
     path('post/', views.post, name='post_list'),
     path('new/', views.create_post, name='post'),
     path('',views.post,name='post_list'),
+    path('add-comment/<int:pk>/', views.add_comment, name='add-comment'),
    
 
 
