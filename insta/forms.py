@@ -51,3 +51,10 @@ class PostForm(forms.ModelForm):
             'image',
             'caption'
         ]
+
+
+
+
+
+
+
