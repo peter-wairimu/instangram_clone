@@ -8,16 +8,16 @@ from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm,PostForm
 from django.contrib import messages
 from django .contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
-
+from django.utils import timezone
 
 
 
 # Create your views here.
 
 
-
+@login_required(login_url='login')
 def post(request):
-    posts = Post.objects.all().filter
+    posts = Post.objects.all().filter(created_date__lte = timezone.now()).order_by('-created_date')
 
     return render(request,'post.html',{'posts':posts})
 
@@ -43,7 +43,7 @@ def loginPage(request):
         user = authenticate(request,username = username,password= password)
         if user is not None:
             login(request,user)
-            return redirect('auth')
+            return redirect('post_list')
             
         else:
             messages.info(request,'Username or password is inorrect')
@@ -60,7 +60,7 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def logincup(request):
-    return render(request,'index.html')
+    return render(request,'post.html')
 
 
 def userPage(request):
@@ -94,8 +94,7 @@ def profile(request):
     return render(request, 'accounts/profile.html', context)
 
 
-
-
+@login_required(login_url='login')
 def create_post(request):
     current_user = request.user
     if request.method == "POST":
@@ -104,7 +103,7 @@ def create_post(request):
             post = form.save(commit= False)
             post.author = current_user
             post.save()
-        return redirect('post')
+        return redirect('post_list')
     else:
         form = PostForm()
     return render(request,'create_post.html',{'form':form})

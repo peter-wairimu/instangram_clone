@@ -41,13 +41,13 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-    helper = FormHelper
+    helper = FormHelper()
     helper.form_method = 'POST'
-    helper.add_input(Submit('post', 'Post',css_class = 'btn success'))
+    helper.add_input(Submit('post', 'post',css_class = 'btn success'))
 
     class Meta:
         model = Post
         fields = [
-            'image'
+            'image',
             'caption'
         ]
