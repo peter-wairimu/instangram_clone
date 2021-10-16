@@ -3,7 +3,7 @@ from django.contrib.auth import forms
 from django.http import request
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import Post,Comment, Profile
+from .models import Like, Post,Comment, Profile
 from .decorators import unauthenticated_user
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm,PostForm,CommentForm
 from django.contrib import messages
@@ -19,11 +19,33 @@ from django.utils import timezone
 @login_required(login_url='login')
 def post(request):
     posts = Post.objects.all().filter(created_date__lte = timezone.now()).order_by('-created_date')
+    user = request.user
+
+    return render(request,'post.html',{'posts':posts,'user':user})
 
 
+def like_post(request):
+    user = request.user
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        phone_post = Post.objects.get(id= post_id)
 
+        if user in phone_post.liked.all():
+            phone_post.liked.remove(user)
+        else:
+            phone_post.liked.add(user)
 
-    return render(request,'post.html',{'posts':posts,})
+        like, created = Like.objects.get_or_create(user=user, post_id = post_id)
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+
+        like.save()
+
+    return redirect('post_list')
+
 
 @unauthenticated_user
 def registerPage(request):

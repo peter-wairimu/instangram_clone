@@ -14,7 +14,19 @@
                 {% endif %}
               </figure>
               <div class="content" id="content">
-                <i class="bi bi-heart"></i>
+                <form action="{% url 'like-post' %}" method="POST" >
+                  {% csrf_token %}
+                  <input type="hidden" name="post_id" value="{{post.id}}">
+                  {% if user not in post.liked.all %}
+                  <button class="button is-success" >like</button>
+                  {% else %}
+                  <button class="button is-danger" >unlike</button>
+                  {%endif%}
+                </form>
+                <strong>{{post.liked.all.count}}</strong>
+
+                
+
                 <i class="bi bi-chat-dots"></i>
                 <i class="bi bi-download"></i>
                 <i class="bi bi-file-arrow-down" id="file"></i>
@@ -60,9 +72,7 @@
                 <a href="{% url 'add-comment' post.id%}"><button class="button is-info" >add comment</button></a>
                 <a href="{% url 'delete-comment' post.id%}"><button class="button is-danger" >delete</button></a>
                 
-                <div class="likes">
-                  <a href="">50 likes</a>
-                </div>
+                
                 </div>
                
                 
