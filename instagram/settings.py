@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'insta.apps.InstaConfig',
     'crispy_forms',
+    'signals',
 ]
 
 MIDDLEWARE = [
