@@ -31,7 +31,6 @@ SECRET_KEY = 'django-insecure-^ul9#46!&2#041o%p1wf&0g89))^!1-_p+u&xv1@nab30l43gr
 # SECURITY WARNING: don't run with debug turned on in production!
 
 MODE=config("MODE", default="dev")
-SECRET_KEY = config('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG', True)
 # development
 if config('MODE')=="dev":
@@ -79,6 +78,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
