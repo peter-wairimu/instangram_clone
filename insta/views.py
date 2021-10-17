@@ -3,7 +3,7 @@ from django.contrib.auth import forms
 from django.http import request
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import Like, Post,Comment, Profile
+from .models import Like, Post,Comment, Profile,FollowsCount
 from .decorators import unauthenticated_user
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm,PostForm,CommentForm
 from django.contrib import messages
@@ -183,10 +183,25 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
-# def search_results(request):
-#     if request.method == 'GET':
-#         query =
 
+
+def index(request):
+    current_user = request.GET.get('user')
+    logged_in_user = request.user.username
+    return render(request,'index.html',{'current_user':current_user})
+
+
+def followers_count(request):
+    if request.method == 'POST':
+        value = request.POST['value']
+        user = request.POST['user']
+        follower = request.POST['follower']
+        if value == 'follow':
+            chege = FollowsCount.objects.create(follower = follower,user = user)
+            chege.save()
+    return redirect('/?user=')
+
+    
 
 
 

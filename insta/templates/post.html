@@ -7,6 +7,7 @@
         
               {% for post in posts %}
         <div class="card">
+          
             <div class="card-image">
               <figure class="image is-4by3">
                 {% if post.image %}
@@ -26,13 +27,15 @@
                 <strong>{{post.liked.all.count}}</strong>
 
                 
-
+                
                 <i class="bi bi-chat-dots"></i>
                 <i class="bi bi-download"></i>
+                <a href="{% url 'followers_count' %}"><button class="button is-primary">Follow</button></a>
                 <i class="bi bi-file-arrow-down" id="file"></i>
+                
 
               </div>
-
+              
               <div class="card-content">
                 <div class="media">
                   <div class="media-left">
