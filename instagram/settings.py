@@ -19,7 +19,7 @@ import cloudinary_storage
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,11 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-
+SECRET_KEY='django-insecure-^ul9#46!&2#041o%p1wf&0g89))^!1-_p+u&xv1@nab30l43gr'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 MODE=config("MODE", default="dev")
-SECRET_KEY=config('SECRET_KEY')
+
 DEBUG=os.environ.get('DEBUG', True)
 # development
 if config('MODE')=="dev":
