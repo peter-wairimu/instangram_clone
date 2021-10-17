@@ -48,13 +48,13 @@
                 
               </div>
 
-              <div class="media-content">
-              <p class="title is-4">{{ post.author }}</p>
-              <p class="subtitle is-6">{{ post.caption }}</p>
-              <p class="subtitle is-8">{{ post.created_date | timesince }}</p>
+              <div class="media-content" id="div">
+              <p class="title is-4" style="color: rgb(16, 95, 69);">{{ post.author }}</p>
+              <p class="subtitle is-6"style="color: rgb(16, 95, 69);" >{{ post.caption }}</p>
+              <p class="subtitle is-8" style="color: rgb(16, 95, 69);">{{ post.created_date | timesince }}</p>
 
 
-              <h3>comments......  </h3>
+              <h2>comments......  </h2>
               {% if not post.comments.all %}
                 <p>No Comments Yet... </p>
 
@@ -69,8 +69,8 @@
 
                 {%endif%}
 
-                <a href="{% url 'add-comment' post.id%}"><button class="button is-info" >add comment</button></a>
-                <a href="{% url 'delete-comment' post.id%}"><button class="button is-danger" >delete</button></a>
+                <a href="{% url 'add-comment' post.id%}"><button class="button is-info"  style="text-transform: capitalize; font-style: italic;">add comment</button></a>
+                <a href="{% url 'delete-comment' post.id%}"><button class="button is-danger" style="text-transform: capitalize; font-style: italic; text-decoration: none;">delete</button></a>
                 
                 
                 </div>
@@ -132,7 +132,22 @@
   
  
 }
+#div{
 
+  padding: 0 2rem;
+  color: rgb(16, 95, 69); 
+  text-transform: capitalize; 
+  font-style: italic;
+  font-family: 'Open Sans', sans-serif;
+}
+h2 {
+  font-size: 1.6rem;
+  font-weight: 100;
+  
+}
+p{
+  color: rgb(16, 95, 69);
+}
 
 </style>
 

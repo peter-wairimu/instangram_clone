@@ -95,7 +95,7 @@ def userPage(request):
     return render(request,'post.html',context)
 
 
-@login_required(login_url='login')
+
 def profile(request):
     user = request.user
     user = Profile.objects.get_or_create(user= request.user)
@@ -174,8 +174,8 @@ def delete_comment(request,pk):
 
 
 def search_results(request):
-    if 'category' in request.GET and request.GET["category"]:
-        search_term = request.GET.get("category")
+    if 'author' in request.GET and request.GET["author"]:
+        search_term = request.GET.get("author")
         searched_articles = Post.search_category(search_term)
         message = f"{search_term}"
         return render(request, 'search.html',{"message":message,"categories": searched_articles})
@@ -183,6 +183,9 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
+# def search_results(request):
+#     if request.method == 'GET':
+#         query =
 
 
 

@@ -21,6 +21,12 @@ class Post(models.Model):
     def num_likes(self):
         return self.liked.all().count
 
+    @classmethod
+    def search_category(cls,search):
+        searches = cls.objects.filter(author__username__icontains = search)
+        return searches
+
+    
 
 
 LIKE_CHOICES = (
@@ -46,6 +52,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+    
         
 
 class Comment(models.Model):
@@ -59,10 +67,7 @@ class Comment(models.Model):
 
 
 
-    @classmethod
-    def search_category(cls,search):
-        searches = cls.objects.filter(category__name__icontains = search)
-        return searches
+    
 
 
 

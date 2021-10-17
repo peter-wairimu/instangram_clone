@@ -71,16 +71,21 @@
 
               </div>
             </div>
-            <div class="field has-addons">
-              <div class="control">
-                <input class="input" type="text" placeholder="Find a repository">
+            
+            <form class="navbar-form" role="search"  action="{% url 'search_results' %}">
+
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="author">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><i class="bi bi-search"></i></i></button>
+                </div>
               </div>
-              <div class="control">
-                <a class="button is-info">
-                  Search
-                </a>
-              </div>
-            </div>
+      
+            </form>
+
+
+
+
           </nav>
     </div>
   </section>
