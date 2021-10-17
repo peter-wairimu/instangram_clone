@@ -173,6 +173,17 @@ def delete_comment(request,pk):
 
 
 
+def search_results(request):
+    if 'category' in request.GET and request.GET["category"]:
+        search_term = request.GET.get("category")
+        searched_articles = Post.search_category(search_term)
+        message = f"{search_term}"
+        return render(request, 'search.html',{"message":message,"categories": searched_articles})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
+
+
 
 
 
