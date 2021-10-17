@@ -19,28 +19,28 @@ import cloudinary_storage
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-^ul9#46!&2#041o%p1wf&0g89))^!1-_p+u&xv1@nab30l43gr'
 
-SECRET_KEY='django-insecure-^ul9#46!&2#041o%p1wf&0g89))^!1-_p+u&xv1@nab30l43gr'
 # SECURITY WARNING: don't run with debug turned on in production!
 
 MODE=config("MODE", default="dev")
-
-DEBUG=os.environ.get('DEBUG', True)
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', True)
 # development
 if config('MODE')=="dev":
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': config('DB_NAME'),
-           'USER': config('DB_USER'),
-           'PASSWORD': config('DB_PASSWORD'),
+           'NAME': config(''),
+           'USER': config('moringa'),
+           'PASSWORD': config('wairimu22'),
            'HOST': config('127.0.0.1'),
            'PORT': '',
        }
@@ -58,7 +58,7 @@ db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-# Application definition
+# # Application definition
 
 ALLOWED_HOSTS = []
 
@@ -80,7 +80,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -113,7 +112,14 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'insta',
+        'USER': 'moringa',
+    'PASSWORD':'wairimu22',
+    }
+}
 
 
 # Password validation
@@ -167,7 +173,6 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '825258561278761',
     'API_SECRET': '8yYvkIlIcJIKrpO40NG2DbaiUGE'
 }
-
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
